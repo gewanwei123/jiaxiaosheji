@@ -27,27 +27,50 @@ export default function ContactSection() {
   };
   
   // 处理表单提交
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // 模拟提交表单
-    setTimeout(() => {
+    try {
+      // 发送表单数据到API端点
+      const response = await fetch('/api/field-planning', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const result = await response.json();
+      
       setIsSubmitting(false);
-      setSubmitSuccess(true);
-      // 重置表单
-      setTimeout(() => {
-        setSubmitSuccess(false);
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          projectType: '',
-          fieldInfo: '',
-          requirements: '',
-        });
-      }, 3000);
-    }, 1500);
+      
+      if (result.success) {
+        // 提交成功
+        setSubmitSuccess(true);
+        
+        // 重置表单
+        setTimeout(() => {
+          setSubmitSuccess(false);
+          setFormData({
+            name: '',
+            phone: '',
+            email: '',
+            projectType: '',
+            fieldInfo: '',
+            requirements: '',
+          });
+        }, 3000);
+      } else {
+        // API返回错误
+        alert(result.message || '提交失败，请稍后再试或直接联系我们');
+      }
+    } catch (error) {
+      // 网络错误或其他异常
+      setIsSubmitting(false);
+      alert('网络错误，请稍后再试');
+      console.error('提交表单出错:', error);
+    }
   };
 
   return (
@@ -209,48 +232,54 @@ export default function ContactSection() {
                     name="fieldInfo"
                     value={formData.fieldInfo}
                     onChange={handleInputChange}
-                    placeholder="场地面积、位置等"
                     className="w-full p-2 border border-gray-300 rounded-md"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="requirements" className="block text-gray-700 mb-1">需求描述</label>
+                  <label htmlFor="requirements" className="block text-gray-700 mb-1">具体需求 <span className="text-red-500">*</span></label>
                   <textarea
                     id="requirements"
                     name="requirements"
+                    rows={4}
                     value={formData.requirements}
                     onChange={handleInputChange}
-                    rows={4}
                     className="w-full p-2 border border-gray-300 rounded-md"
+                    placeholder="请详细描述您的场地规划需求，如场地面积、用途、特殊要求等"
+                    required
                   ></textarea>
+                  <p className="mt-1 text-sm text-gray-500">详细的需求描述有助于我们更好地了解您的项目，提供更精准的服务方案</p>
                 </div>
               </div>
               
-              <div className="mt-6">
+              {submitSuccess && (
+                <div className="p-4 bg-green-50 text-green-700 rounded-md mb-4 flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>表单提交成功，我们会尽快联系您!</span>
+                </div>
+              )}
+              
+              <div>
                 <button 
                   type="submit" 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 flex justify-center items-center"
                   disabled={isSubmitting}
+                  className={`w-full py-3 px-6 rounded-md font-medium transition-colors ${
+                    isSubmitting 
+                      ? 'bg-gray-400 text-white cursor-not-allowed' 
+                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                  }`}
                 >
                   {isSubmitting ? (
-                    <>
+                    <div className="flex items-center justify-center">
                       <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      正在提交...
-                    </>
-                  ) : submitSuccess ? (
-                    <>
-                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                      提交成功
-                    </>
-                  ) : (
-                    "提交咨询"
-                  )}
+                      <span>提交中...</span>
+                    </div>
+                  ) : '提交咨询'}
                 </button>
               </div>
               
