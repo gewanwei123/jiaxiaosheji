@@ -24,7 +24,7 @@ export default function ServiceOverview() {
         </svg>
       ),
       description: '专业团队负责驾校备案资料制作，熟悉各地备案要求，确保资料齐全、准确，快速通过审批。',
-      link: '/services/documentation'
+      link: '/services/record-material'
     }
   ];
 

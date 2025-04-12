@@ -44,7 +44,7 @@ export default function Header() {
               <Link href="/services/field-planning" className="block px-4 py-2 text-gray-800 hover:bg-blue-50">
                 场地设计规划
               </Link>
-              <Link href="/services/documentation" className="block px-4 py-2 text-gray-800 hover:bg-blue-50">
+              <Link href="/services/record-material" className="block px-4 py-2 text-gray-800 hover:bg-blue-50">
                 备案资料制作
               </Link>
             </div>
@@ -105,7 +105,7 @@ export default function Header() {
             <Link href="/services/field-planning" className="text-gray-800 py-2 pl-4 border-b border-gray-100">
               场地设计规划
             </Link>
-            <Link href="/services/documentation" className="text-gray-800 py-2 pl-4 border-b border-gray-100">
+            <Link href="/services/record-material" className="text-gray-800 py-2 pl-4 border-b border-gray-100">
               备案资料制作
             </Link>
             <Link href="/cases" className="text-gray-800 py-2 border-b border-gray-100">
