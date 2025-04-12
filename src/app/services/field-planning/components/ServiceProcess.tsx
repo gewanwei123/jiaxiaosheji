@@ -128,14 +128,19 @@ export default function ServiceProcess() {
                   >
                     {step.icon}
                   </div>
-                  <div className="text-center w-40">
-                    <h3 className="font-semibold text-gray-800 mb-2">{step.title}</h3>
-                    <div className={`transition-all duration-300 overflow-hidden ${hoveredStep === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                      <ul className="text-sm text-gray-600 text-left list-disc list-inside">
-                        {step.details.map((detail, i) => (
-                          <li key={i} className="mb-1">{detail}</li>
-                        ))}
-                      </ul>
+                  <div className={`text-center ${index < 2 ? 'w-56' : 'w-48'}`}>
+                    <h3 className="font-semibold text-gray-800 mb-2 px-1">{step.title}</h3>
+                    <div className={`transition-all duration-300 overflow-hidden ${hoveredStep === index ? 'max-h-56 opacity-100' : 'max-h-0 opacity-0'}`}>
+                      <div className="bg-white p-3 rounded-lg shadow-md border border-gray-100">
+                        <ul className="text-sm text-gray-600 text-left space-y-2">
+                          {step.details.map((detail, i) => (
+                            <li key={i} className="flex items-start">
+                              <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 mr-2 flex-shrink-0"></span>
+                              <span className="leading-tight">{detail}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>

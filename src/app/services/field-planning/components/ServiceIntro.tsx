@@ -38,7 +38,7 @@ export default function ServiceIntro() {
         {/* 服务概述和价值主张 */}
         <div className="max-w-4xl mx-auto mb-16">
           <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-            我们提供全面的驾校场地规划设计服务，依据《机动车驾驶员培训教练场技术要求》（GBT 30341--2013）和各地方标准，
+            我们提供全面的驾校场地规划设计服务，依据《机动车驾驶员培训机构资格条件》（GBT 30340--2013）、《机动车驾驶员培训教练场技术要求》（GBT 30341--2013）和各地方标准，
             为您量身定制符合规范、通过审批、优化使用的场地解决方案。
           </p>
           

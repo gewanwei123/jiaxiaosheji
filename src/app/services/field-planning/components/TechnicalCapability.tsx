@@ -64,7 +64,7 @@ export default function TechnicalCapability() {
     },
     {
       title: "成功项目案例",
-      count: "50+",
+      count: "200+",
       description: "覆盖全国多个省市，各类规模的驾校场地规划设计"
     }
   ];
