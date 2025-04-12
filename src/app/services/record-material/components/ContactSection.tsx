@@ -144,36 +144,23 @@ export default function ContactSection() {
                   <p className="text-gray-700">郑州市中原区嵩山北路299号郑州市创业孵化园3号楼2楼23号</p>
                 </div>
               </div>
-            </div>
-            
-            <div className="mt-10">
-              <h4 className="text-lg font-medium text-gray-800 mb-4">我们的服务优势</h4>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              
+              {/* 微信二维码 */}
+              <div className="flex items-start">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
                   </svg>
-                  <span className="text-gray-700">专业的备案资料制作团队</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">丰富的成功案例和经验积累</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">高效的工作流程和响应速度</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-gray-700">一对一的专业顾问服务</span>
-                </li>
-              </ul>
+                </div>
+                <div>
+                  <h4 className="text-lg font-medium text-gray-800 mb-1">微信二维码</h4>
+                  <div className="bg-white p-2 rounded-md w-32 h-32 mb-2 flex items-center justify-center">
+                    {/* 替换为实际的微信二维码图片 */}
+                    <p className="text-blue-700 text-xs text-center">请替换为实际微信二维码图片</p>
+                  </div>
+                  <p className="text-gray-500 text-sm">扫码添加微信，获取更多服务信息</p>
+                </div>
+              </div>
             </div>
           </div>
           
