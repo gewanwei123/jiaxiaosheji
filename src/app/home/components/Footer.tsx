@@ -17,7 +17,6 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/about" className="text-gray-400 hover:text-white">公司介绍</Link></li>
               <li><Link href="/about/team" className="text-gray-400 hover:text-white">团队介绍</Link></li>
-              <li><Link href="/about/history" className="text-gray-400 hover:text-white">发展历程</Link></li>
               <li><Link href="/about/culture" className="text-gray-400 hover:text-white">企业文化</Link></li>
             </ul>
           </div>
@@ -28,7 +27,6 @@ export default function Footer() {
               <li><Link href="/services/field-planning" className="text-gray-400 hover:text-white">场地规划设计</Link></li>
               <li><Link href="/services/documentation" className="text-gray-400 hover:text-white">备案资料制作</Link></li>
               <li><Link href="/services/consulting" className="text-gray-400 hover:text-white">政策咨询</Link></li>
-              <li><Link href="/services/training" className="text-gray-400 hover:text-white">培训服务</Link></li>
             </ul>
           </div>
           
@@ -38,14 +36,12 @@ export default function Footer() {
               <li><Link href="/cases/field-planning" className="text-gray-400 hover:text-white">场地规划案例</Link></li>
               <li><Link href="/cases/documentation" className="text-gray-400 hover:text-white">备案资料案例</Link></li>
               <li><Link href="/cases/consulting" className="text-gray-400 hover:text-white">咨询服务案例</Link></li>
-              <li><Link href="/cases/training" className="text-gray-400 hover:text-white">培训服务案例</Link></li>
             </ul>
           </div>
           
           <div>
             <h3 className="text-xl font-bold mb-4">政策法规</h3>
             <ul className="space-y-2">
-              <li><Link href="/policies/latest" className="text-gray-400 hover:text-white">最新政策</Link></li>
               <li><Link href="/policies/standard" className="text-gray-400 hover:text-white">行业标准</Link></li>
               <li><Link href="/policies/interpretation" className="text-gray-400 hover:text-white">政策解读</Link></li>
               <li><Link href="/policies/faq" className="text-gray-400 hover:text-white">常见问题</Link></li>
