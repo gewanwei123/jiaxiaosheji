@@ -7,9 +7,19 @@ export async function POST(request: Request) {
     const formData = await request.json();
     const { name, phone, email, service, message } = formData;
     
-    // 2. 创建临时测试邮箱（开发阶段用）
-    // 注意：这只是用于开发测试，实际使用时应配置真实邮箱
-    let testAccount = await nodemailer.createTestAccount();
+    // 2. 从环境变量获取邮箱配置
+    const emailUser = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASS;
+    const emailRecipient = process.env.EMAIL_RECIPIENT;
+    
+    // 验证环境变量是否配置
+    if (!emailUser || !emailPass || !emailRecipient) {
+      console.error('邮箱配置环境变量缺失');
+      return NextResponse.json(
+        { success: false, message: '服务器配置错误，请联系管理员' },
+        { status: 500 }
+      );
+    }
     
     // 3. 创建发送器
     let transporter = nodemailer.createTransport({
@@ -17,15 +27,15 @@ export async function POST(request: Request) {
       port: 465,
       secure: true, // 使用SSL
       auth: {
-        user: '876261867@qq.com', // 您的QQ邮箱
-        pass: 'bsxgyftacpbkbeji', // QQ邮箱的授权码，不是登录密码
+        user: emailUser,
+        pass: emailPass,
       },
     });
     
     // 4. 发送邮件
     let info = await transporter.sendMail({
-      from: '"驾校设计规划网站" <876261867@qq.com>',
-      to: "876261867@qq.com", // 使用您的实际邮箱
+      from: `"驾校设计规划网站" <${emailUser}>`,
+      to: emailRecipient,
       subject: "新的咨询表单提交",
       text: `
         收到新的咨询信息：
@@ -50,9 +60,8 @@ export async function POST(request: Request) {
       `
     });
     
-    // 5. 打印测试邮件的URL（仅在开发环境）
+    // 5. 打印邮件发送信息
     console.log("邮件已发送: %s", info.messageId);
-    console.log("预览URL: %s", nodemailer.getTestMessageUrl(info));
     
     // 6. 返回成功响应
     return NextResponse.json({ 
