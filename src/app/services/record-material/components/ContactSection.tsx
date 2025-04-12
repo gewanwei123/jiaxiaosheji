@@ -73,17 +73,32 @@ export default function ContactSection() {
     setSubmitMessage(null);
     
     try {
-      // 在实际应用中，这里应该是一个API调用
-      // 模拟API调用
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // 调用API进行表单提交
+      const response = await fetch('/api/record-material', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
       
-      // 模拟成功提交
-      setSubmitStatus('success');
-      setSubmitMessage('提交成功！我们的客服团队将尽快与您联系。');
-      setFormData(initialFormData);
+      const result = await response.json();
+      
+      if (result.success) {
+        // 提交成功
+        setSubmitStatus('success');
+        setSubmitMessage(result.message || '提交成功！我们的客服团队将尽快与您联系。');
+        setFormData(initialFormData);
+      } else {
+        // API返回错误
+        setSubmitStatus('error');
+        setSubmitMessage(result.message || '提交失败，请稍后重试或直接电话联系我们。');
+      }
     } catch (error) {
+      // 网络错误或其他异常
+      console.error('表单提交错误:', error);
       setSubmitStatus('error');
-      setSubmitMessage('提交失败，请稍后重试或直接电话联系我们。');
+      setSubmitMessage('网络错误，请稍后再试或直接拨打电话联系我们。');
     } finally {
       setIsSubmitting(false);
     }
