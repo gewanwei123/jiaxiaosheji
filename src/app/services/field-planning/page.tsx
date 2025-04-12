@@ -1,19 +1,59 @@
-import React from 'react';
+'use client';
 
-export const metadata = {
-  title: '场地规划设计服务 - 驾校设计规划服务',
-  description: '专业的驾校场地规划设计服务，提供合规高效的场地布局规划和设计方案，满足审批要求，提升运营效率。',
-};
+import React from 'react';
+import Header from '../../home/components/Header';
+import Footer from '../../home/components/Footer';
+import ServiceIntro from './components/ServiceIntro';
+import ServiceProcess from './components/ServiceProcess';
+import TechnicalCapability from './components/TechnicalCapability';
+import CaseShowcase from './components/CaseShowcase';
+import ServiceValue from './components/ServiceValue';
+import FAQ from './components/FAQ';
+import ContactSection from './components/ContactSection';
+import CustomerFeedback from './components/CustomerFeedback';
 
 export default function FieldPlanningServicePage() {
   return (
-    <main className="min-h-screen">
-      <div className="container mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-center mb-8">场地规划设计服务</h1>
-        <p className="text-center text-gray-600 mb-12">
-          正在构建中...这里将是场地规划设计服务详情页
-        </p>
-      </div>
-    </main>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-grow">
+        {/* 服务介绍区域 */}
+        <ServiceIntro />
+        
+        {/* 服务流程展示 */}
+        <div className="bg-gray-50">
+          <ServiceProcess />
+        </div>
+        
+        {/* 技术能力展示 */}
+        <div className="bg-white">
+          <TechnicalCapability />
+        </div>
+        
+        {/* 案例展示区域 */}
+        <div className="bg-gray-50">
+          <CaseShowcase />
+        </div>
+        
+        {/* 客户反馈展示 */}
+        <div className="bg-white">
+          <CustomerFeedback />
+        </div>
+        
+        {/* 服务价值区域 */}
+        <div className="bg-gray-50">
+          <ServiceValue />
+        </div>
+        
+        {/* 常见问题解答 */}
+        <div className="bg-white">
+          <FAQ />
+        </div>
+        
+        {/* 联系咨询区域 */}
+        <ContactSection />
+      </main>
+      <Footer />
+    </div>
   );
 } 
