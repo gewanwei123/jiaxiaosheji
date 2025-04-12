@@ -171,38 +171,131 @@ export default function ServiceOverview() {
         {/* 服务流程 */}
         <div>
           <h3 className="text-2xl font-bold text-gray-800 text-center mb-10">服务流程</h3>
-          <div className="relative">
-            {/* 连接线 */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-blue-200 transform -translate-x-1/2 z-0"></div>
+          
+          {/* 流程图 - 桌面版 */}
+          <div className="hidden md:block relative mx-auto max-w-5xl">
+            {/* 中心连接线 */}
+            <div className="absolute left-1/2 top-10 bottom-10 w-2 bg-gradient-to-b from-blue-500 to-blue-600 transform -translate-x-1/2 rounded-full z-0"></div>
             
-            <div className="space-y-12">
+            <div className="space-y-20 relative">
               {processes.map((process, index) => (
-                <div 
-                  key={index} 
-                  className={`relative z-10 flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-                >
-                  {/* 流程点 */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 md:static md:transform-none">
-                    <div className="bg-blue-100 rounded-full p-3 border-4 border-white shadow-md transition-all duration-300 hover:bg-blue-200 hover:shadow-lg">
-                      {process.icon}
+                <div key={index} className="relative">
+                  {/* 连接箭头 (除了最后一步) */}
+                  {index < processes.length - 1 && (
+                    <div className="absolute left-1/2 top-full mt-8 transform -translate-x-1/2 text-blue-500 z-10">
+                      <svg className="w-8 h-8 mx-auto animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                      </svg>
                     </div>
+                  )}
+                  
+                  <div className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                    {/* 内容区域 */}
+                    <div className={`w-[45%] ${index % 2 === 0 ? 'text-right pr-12' : 'pl-12'}`}>
+                      <div className={`bg-white rounded-xl shadow-lg p-6 md:p-8 transition-all duration-300 hover:shadow-xl ${
+                        index % 2 === 0 ? 'border-r-4' : 'border-l-4'
+                      } ${
+                        index === 0 ? 'border-blue-600' : 
+                        index === 1 ? 'border-indigo-500' : 
+                        index === 2 ? 'border-blue-500' : 
+                        index === 3 ? 'border-indigo-500' : 'border-blue-600'
+                      }`}>
+                        <h4 className="text-xl font-bold text-gray-800 mb-3">
+                          {`${index + 1}. ${process.step}`}
+                        </h4>
+                        <p className="text-gray-600">{process.description}</p>
+                      </div>
+                    </div>
+                    
+                    {/* 中心图标 */}
+                    <div className="w-[10%] flex justify-center">
+                      <div className={`relative flex items-center justify-center w-20 h-20 rounded-full shadow-lg z-10 ${
+                        index === 0 ? 'bg-blue-100 border-2 border-blue-500' : 
+                        index === 1 ? 'bg-indigo-100 border-2 border-indigo-500' : 
+                        index === 2 ? 'bg-blue-100 border-2 border-blue-600' : 
+                        index === 3 ? 'bg-indigo-100 border-2 border-indigo-500' : 
+                        'bg-blue-100 border-2 border-blue-500'
+                      }`}>
+                        <div className={`${
+                          index === 0 ? 'text-blue-600' : 
+                          index === 1 ? 'text-indigo-600' : 
+                          index === 2 ? 'text-blue-700' : 
+                          index === 3 ? 'text-indigo-600' : 
+                          'text-blue-600'
+                        } scale-125`}>
+                          {process.icon}
+                        </div>
+                        <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-white text-gray-800 flex items-center justify-center font-bold shadow-md border border-gray-200">
+                          {index + 1}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* 空白区域 */}
+                    <div className="w-[45%]"></div>
                   </div>
-                  
-                  {/* 内容 */}
-                  <div className={`bg-white rounded-xl shadow p-6 ml-16 md:ml-0 md:w-5/12 transition-all duration-300 hover:shadow-lg ${
-                    index % 2 === 0 ? 'md:mr-auto md:text-right' : 'md:ml-auto'
-                  }`}>
-                    <h4 className="text-xl font-bold text-gray-800 mb-2">{`${index + 1}. ${process.step}`}</h4>
-                    <p className="text-gray-600">{process.description}</p>
-                  </div>
-                  
-                  {/* 中间空白 */}
-                  <div className="hidden md:block md:w-2/12"></div>
-                  
-                  {/* 另一侧空白 */}
-                  <div className="hidden md:block md:w-5/12"></div>
                 </div>
               ))}
+            </div>
+          </div>
+          
+          {/* 流程图 - 移动版 */}
+          <div className="md:hidden">
+            <div className="relative pl-14">
+              {/* 垂直连接线 */}
+              <div className="absolute left-5 top-0 bottom-0 w-1.5 bg-gradient-to-b from-blue-500 to-blue-600 z-0 rounded-full"></div>
+              
+              <div className="space-y-12">
+                {processes.map((process, index) => (
+                  <div key={index} className="relative">
+                    {/* 流程点 */}
+                    <div className="absolute left-0 top-0 transform -translate-x-1/2 z-10">
+                      <div className={`flex items-center justify-center w-10 h-10 rounded-full shadow-md ${
+                        index === 0 ? 'bg-blue-100 border-2 border-blue-500' : 
+                        index === 1 ? 'bg-indigo-100 border-2 border-indigo-500' : 
+                        index === 2 ? 'bg-blue-100 border-2 border-blue-600' : 
+                        index === 3 ? 'bg-indigo-100 border-2 border-indigo-500' : 
+                        'bg-blue-100 border-2 border-blue-500'
+                      }`}>
+                        <span className={`${
+                          index === 0 ? 'text-blue-600' : 
+                          index === 1 ? 'text-indigo-600' : 
+                          index === 2 ? 'text-blue-700' : 
+                          index === 3 ? 'text-indigo-600' : 
+                          'text-blue-600'
+                        } font-bold`}>{index + 1}</span>
+                      </div>
+                    </div>
+                    
+                    {/* 箭头 (除了最后一步) */}
+                    {index < processes.length - 1 && (
+                      <div className="absolute left-5 top-full -mt-6 transform -translate-x-1/2 text-blue-500 z-10">
+                        <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                        </svg>
+                      </div>
+                    )}
+                    
+                    {/* 内容 */}
+                    <div className={`bg-white rounded-xl shadow-lg p-5 border-l-4 ${
+                      index === 0 ? 'border-blue-600' : 
+                      index === 1 ? 'border-indigo-500' : 
+                      index === 2 ? 'border-blue-500' : 
+                      index === 3 ? 'border-indigo-500' : 'border-blue-600'
+                    }`}>
+                      <div className="flex items-center mb-2">
+                        <div className="text-blue-600 p-1 mr-3 flex-shrink-0">
+                          {process.icon}
+                        </div>
+                        <h4 className="text-lg font-bold text-gray-800">
+                          {process.step}
+                        </h4>
+                      </div>
+                      <p className="text-gray-600">{process.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

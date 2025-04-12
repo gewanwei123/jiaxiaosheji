@@ -34,7 +34,7 @@ export default function ContactSection() {
                 </svg>
                 <div>
                   <h4 className="text-lg font-semibold mb-1">公司地址</h4>
-                  <p className="text-white/80">北京市朝阳区建国路88号</p>
+                  <p className="text-white/80">郑州市中原区嵩山北路 299 号郑州市创业孵化园 3 号楼 2 楼 23 号</p>
                 </div>
               </div>
               
@@ -44,7 +44,7 @@ export default function ContactSection() {
                 </svg>
                 <div>
                   <h4 className="text-lg font-semibold mb-1">联系电话</h4>
-                  <p className="text-white/80">010-12345678</p>
+                  <p className="text-white/80">135-2552-0521 (同微信)</p>
                 </div>
               </div>
               
@@ -54,7 +54,7 @@ export default function ContactSection() {
                 </svg>
                 <div>
                   <h4 className="text-lg font-semibold mb-1">电子邮箱</h4>
-                  <p className="text-white/80">info@jiaxiaosheji.com</p>
+                  <p className="text-white/80">876261867@qq.com</p>
                 </div>
               </div>
               
@@ -170,15 +170,6 @@ export default function ContactSection() {
                 </div>
               </div>
             </form>
-            
-            <div className="mt-6 text-center">
-              <Link 
-                href="/contact" 
-                className="text-white/80 hover:text-white underline underline-offset-4"
-              >
-                查看更多联系方式
-              </Link>
-            </div>
           </div>
         </div>
       </div>
