@@ -51,7 +51,9 @@ export default function FieldPlanningServicePage() {
         </div>
         
         {/* 联系咨询区域 */}
-        <ContactSection />
+        <div id="contact-section">
+          <ContactSection />
+        </div>
       </main>
       <Footer />
     </div>

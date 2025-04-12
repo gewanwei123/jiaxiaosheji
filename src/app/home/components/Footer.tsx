@@ -25,7 +25,7 @@ export default function Footer() {
             <h3 className="text-xl font-bold mb-4">服务项目</h3>
             <ul className="space-y-2">
               <li><Link href="/services/field-planning" className="text-gray-400 hover:text-white">场地规划设计</Link></li>
-              <li><Link href="/services/documentation" className="text-gray-400 hover:text-white">备案资料制作</Link></li>
+              <li><Link href="/services/record-material" className="text-gray-400 hover:text-white">备案资料制作</Link></li>
               <li><Link href="/services/consulting" className="text-gray-400 hover:text-white">政策咨询</Link></li>
             </ul>
           </div>

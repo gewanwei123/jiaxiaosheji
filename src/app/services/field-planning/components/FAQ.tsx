@@ -43,6 +43,19 @@ export default function FAQ() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  // 滚动到联系部分
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -91,7 +104,10 @@ export default function FAQ() {
         {/* 提交更多问题的入口 */}
         <div className="text-center mt-12">
           <p className="text-gray-700 mb-4">还有其他问题？我们很乐意为您解答</p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-300">
+          <button 
+            onClick={scrollToContact}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-300"
+          >
             提交您的问题
           </button>
         </div>
