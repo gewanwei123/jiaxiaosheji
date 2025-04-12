@@ -1,14 +1,95 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 export default function ContactSection() {
+  // 表单数据状态
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    service: '',
+    message: ''
+  });
+  
+  // 表单提交状态
+  const [submitStatus, setSubmitStatus] = useState({
+    submitting: false,
+    submitted: false,
+    success: false,
+    message: ''
+  });
+  
+  // 处理表单输入变化
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+  
   // 表单提交处理
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 在实际项目中这里应该处理表单提交逻辑
-    console.log('表单提交');
+    
+    // 设置提交中状态
+    setSubmitStatus({
+      submitting: true,
+      submitted: false,
+      success: false,
+      message: '正在提交...'
+    });
+    
+    try {
+      // 发送表单数据到API端点
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // 提交成功
+        setSubmitStatus({
+          submitting: false,
+          submitted: true,
+          success: true,
+          message: '表单提交成功，我们会尽快联系您！'
+        });
+        
+        // 清空表单
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          service: '',
+          message: ''
+        });
+      } else {
+        // API返回错误
+        setSubmitStatus({
+          submitting: false,
+          submitted: true,
+          success: false,
+          message: result.message || '提交失败，请稍后再试'
+        });
+      }
+    } catch (error) {
+      // 网络错误或其他异常
+      console.error('表单提交错误:', error);
+      setSubmitStatus({
+        submitting: false,
+        submitted: true,
+        success: false,
+        message: '网络错误，请稍后再试'
+      });
+    }
   };
   
   return (
@@ -97,6 +178,8 @@ export default function ContactSection() {
                   <input 
                     type="text" 
                     id="name" 
+                    value={formData.name}
+                    onChange={handleChange}
                     className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
                     placeholder="请输入您的姓名"
                     required
@@ -108,6 +191,8 @@ export default function ContactSection() {
                   <input 
                     type="tel" 
                     id="phone" 
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
                     placeholder="请输入您的联系电话"
                     required
@@ -119,6 +204,8 @@ export default function ContactSection() {
                   <input 
                     type="email" 
                     id="email" 
+                    value={formData.email}
+                    onChange={handleChange}
                     className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
                     placeholder="请输入您的电子邮箱"
                   />
@@ -128,13 +215,15 @@ export default function ContactSection() {
                   <label htmlFor="service" className="block text-white/80 mb-1">咨询服务</label>
                   <select 
                     id="service" 
+                    value={formData.service}
+                    onChange={handleChange}
                     className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white/30"
                     required
                   >
                     <option value="" className="bg-blue-700">请选择咨询服务</option>
-                    <option value="field-planning" className="bg-blue-700">场地规划设计</option>
-                    <option value="documentation" className="bg-blue-700">备案资料制作</option>
-                    <option value="other" className="bg-blue-700">其他服务</option>
+                    <option value="场地规划设计" className="bg-blue-700">场地规划设计</option>
+                    <option value="备案资料制作" className="bg-blue-700">备案资料制作</option>
+                    <option value="其他服务" className="bg-blue-700">其他服务</option>
                   </select>
                 </div>
                 
@@ -142,19 +231,29 @@ export default function ContactSection() {
                   <label htmlFor="message" className="block text-white/80 mb-1">咨询内容</label>
                   <textarea 
                     id="message" 
-                    rows={4} 
+                    rows={4}
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
                     placeholder="请详细描述您的需求"
                     required
                   ></textarea>
                 </div>
                 
+                {/* 提交状态反馈 */}
+                {submitStatus.submitted && (
+                  <div className={`p-3 rounded ${submitStatus.success ? 'bg-green-500/20' : 'bg-red-500/20'}`}>
+                    {submitStatus.message}
+                  </div>
+                )}
+                
                 <div>
                   <button 
                     type="submit" 
-                    className="w-full bg-white text-blue-700 hover:bg-white/90 font-medium px-6 py-3 rounded-md transition-colors"
+                    disabled={submitStatus.submitting}
+                    className="w-full bg-white text-blue-700 hover:bg-white/90 font-medium px-6 py-3 rounded-md transition-colors disabled:opacity-75"
                   >
-                    提交咨询
+                    {submitStatus.submitting ? '提交中...' : '提交咨询'}
                   </button>
                 </div>
               </div>
