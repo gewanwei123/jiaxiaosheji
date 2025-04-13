@@ -44,15 +44,6 @@ const DUMMY_CASES = [
     tags: ["地形适应", "排水设计", "成本优化"]
   },
   {
-    id: "case-005",
-    title: "驾培机构政策法规咨询服务",
-    category: "政策咨询",
-    thumbnail: "/images/cases/case5.jpg", // 注意：需要添加实际图片
-    summary: "为多家驾培机构提供政策解读和法规咨询服务，协助客户理解最新政策变化，调整经营策略，顺应行业发展趋势。通过专业解读和建议，帮助客户避免了政策风险，把握市场机遇，实现业务稳健增长。",
-    completionDate: "2023年9月",
-    tags: ["政策解读", "合规咨询", "战略调整"]
-  },
-  {
     id: "case-006",
     title: "某驾校智能化系统规划与实施",
     category: "场地规划设计",
@@ -80,15 +71,6 @@ const DUMMY_CASES = [
     tags: ["环保改造", "节能设计", "绿色驾校"]
   },
   {
-    id: "case-009",
-    title: "驾培机构资质升级咨询服务",
-    category: "政策咨询",
-    thumbnail: "/images/cases/case9.jpg", // 注意：需要添加实际图片
-    summary: "为中型驾培机构提供资质升级咨询，协助其从C2类升级至A1全项目资质。项目包括资质要求分析、差距评估、整改方案制定、申报材料准备等全流程服务，最终助力客户成功获批A1资质，扩大了业务范围和市场竞争力。",
-    completionDate: "2024年1月",
-    tags: ["资质升级", "全项目", "扩展业务"]
-  },
-  {
     id: "case-010",
     title: "某驾校标准化备案资料模板开发",
     category: "备案资料制作",
@@ -103,16 +85,8 @@ const DUMMY_CASES = [
 const CATEGORIES = [
   "全部", 
   "场地规划设计", 
-  "备案资料制作", 
-  "政策咨询"
+  "备案资料制作"
 ];
-
-// 场地规划设计子分类（未来可实现多级筛选）
-const SUB_CATEGORIES: Record<string, string[]> = {
-  "场地规划设计": ["空间优化", "动线设计", "地形适应", "智能系统", "环保节能"],
-  "备案资料制作": ["标准化模板", "审批文件", "图纸制作", "资料编制"],
-  "政策咨询": ["政策解读", "资质升级", "合规咨询", "战略规划"]
-};
 
 // 排序选项
 const SORT_OPTIONS = [
@@ -126,7 +100,6 @@ export default function CasesPage() {
   // 状态管理
   const [activeCategory, setActiveCategory] = useState("全部");
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTags, setActiveTags] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState("date-desc");
   const [displayCount, setDisplayCount] = useState(6); // 初始显示6个案例
   
@@ -212,11 +185,6 @@ export default function CasesPage() {
   const filteredCases = DUMMY_CASES
     // 按分类筛选
     .filter(c => activeCategory === "全部" || c.category === activeCategory)
-    // 按标签筛选（如果有选中的标签）
-    .filter(c => {
-      if (activeTags.length === 0) return true;
-      return c.tags?.some(tag => activeTags.includes(tag));
-    })
     // 按搜索关键词筛选
     .filter(c => {
       if (!searchQuery) return true;
@@ -224,8 +192,7 @@ export default function CasesPage() {
       return (
         c.title.toLowerCase().includes(query) ||
         c.summary.toLowerCase().includes(query) ||
-        c.category.toLowerCase().includes(query) ||
-        c.tags?.some(tag => tag.toLowerCase().includes(query))
+        c.category.toLowerCase().includes(query)
       );
     });
   
@@ -257,23 +224,8 @@ export default function CasesPage() {
   const handleReset = () => {
     setActiveCategory("全部");
     setSearchQuery("");
-    setActiveTags([]);
     setSortOption("date-desc");
   };
-  
-  // 处理标签选择
-  const handleTagToggle = (tag: string) => {
-    setActiveTags(prev => 
-      prev.includes(tag)
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
-    );
-  };
-  
-  // 当切换分类时，清空已选标签
-  useEffect(() => {
-    setActiveTags([]);
-  }, [activeCategory]);
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -300,7 +252,7 @@ export default function CasesPage() {
           <div className="container mx-auto px-4 z-10 relative text-center pt-16">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">驾校服务成功案例展示</h1>
             <p className="text-lg md:text-xl text-white mb-6 max-w-3xl mx-auto">
-              查看我们为驾校提供的场地规划设计、备案资料制作和政策咨询服务的成功案例，了解我们如何帮助客户解决实际问题，提升运营效率。
+              查看我们为驾校提供的场地规划设计和备案资料制作服务的成功案例，了解我们如何帮助客户解决实际问题，提升运营效率。
             </p>
             <div className="w-24 h-1 bg-white mx-auto mb-6"></div>
             <div className="flex justify-center space-x-8 mt-8 mb-6">
@@ -345,40 +297,6 @@ export default function CasesPage() {
                   </button>
                 ))}
               </div>
-            </div>
-            
-            {activeCategory !== "全部" && SUB_CATEGORIES[activeCategory] && (
-              <div className="mb-6">
-                <h3 className="text-lg font-medium text-gray-700 mb-3">技术标签</h3>
-                <div className="flex flex-wrap justify-start gap-2">
-                  {SUB_CATEGORIES[activeCategory].map(tag => (
-                    <div key={tag} className="flex items-center">
-                      <input 
-                        type="checkbox" 
-                        id={`tag-${tag}`}
-                        checked={activeTags.includes(tag)}
-                        onChange={() => handleTagToggle(tag)}
-                        className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
-                      />
-                      <label htmlFor={`tag-${tag}`} className="ml-2 text-sm text-gray-700">
-                        {tag}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            <div className="flex justify-end">
-              <button 
-                onClick={handleReset}
-                className="inline-flex items-center text-blue-600 hover:text-blue-800"
-              >
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                </svg>
-                重置筛选条件
-              </button>
             </div>
           </div>
         </div>
@@ -457,7 +375,7 @@ export default function CasesPage() {
                 <p className="text-xl text-gray-600 mb-2">暂无符合条件的案例</p>
                 <p className="text-gray-500">请尝试调整筛选条件或搜索关键词</p>
                 <button 
-                  onClick={handleReset} 
+                  onClick={() => setActiveCategory("全部")} 
                   className="mt-4 text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
                 >
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -626,7 +544,6 @@ export default function CasesPage() {
                         <option value="">请选择服务类型</option>
                         <option value="field-planning">场地规划设计</option>
                         <option value="record-material">备案资料制作</option>
-                        <option value="policy-consulting">政策咨询</option>
                       </select>
                     </div>
                     
