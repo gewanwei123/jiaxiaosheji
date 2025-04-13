@@ -67,8 +67,22 @@ export default function Header() {
         </nav>
 
         {/* Contact Button */}
-        <Link 
-          href="/contact" 
+        <button 
+          onClick={() => {
+            // 使用更可靠的方法查找contact区域
+            setTimeout(() => {
+              const contactSection = document.getElementById('contact');
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                // 如果找不到contact元素，尝试滚动到页面底部
+                window.scrollTo({
+                  top: document.body.scrollHeight,
+                  behavior: 'smooth'
+                });
+              }
+            }, 100); // 添加小延迟确保DOM已完全加载
+          }}
           className={`hidden md:block px-5 py-2 rounded-full transition-colors ${
             isScrolled 
               ? 'bg-blue-600 hover:bg-blue-700 text-white' 
@@ -76,7 +90,7 @@ export default function Header() {
           }`}
         >
           联系我们
-        </Link>
+        </button>
 
         {/* Mobile Menu Button */}
         <button 
@@ -117,9 +131,27 @@ export default function Header() {
             <Link href="/about" className="text-gray-800 py-2 border-b border-gray-100">
               关于我们
             </Link>
-            <Link href="/contact" className="bg-blue-600 text-white py-2 px-4 rounded text-center">
+            <button 
+              onClick={() => {
+                setIsMobileMenuOpen(false); // 关闭移动菜单
+                // 使用更可靠的方法查找contact区域
+                setTimeout(() => {
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    // 如果找不到contact元素，尝试滚动到页面底部
+                    window.scrollTo({
+                      top: document.body.scrollHeight,
+                      behavior: 'smooth'
+                    });
+                  }
+                }, 100); // 添加小延迟确保DOM已完全加载
+              }}
+              className="bg-blue-600 text-white py-2 px-4 rounded text-center"
+            >
               联系我们
-            </Link>
+            </button>
           </div>
         </div>
       )}

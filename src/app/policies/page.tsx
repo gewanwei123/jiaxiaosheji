@@ -549,7 +549,7 @@ export default function PoliciesPage() {
         </div>
         
         {/* 咨询服务 */}
-        <div className="bg-blue-50 py-12">
+        <div id="contact" className="bg-blue-50 py-12">
           <div className="container mx-auto px-4">
             {/* 主标题 */}
             <div className="text-center mb-12">
