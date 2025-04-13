@@ -168,29 +168,13 @@ export default function CasesPage() {
     setSubmitMessage(null);
     
     try {
-      // 这里可以添加表单验证逻辑
+      // 表单验证
       if (!formData.name.trim() || !formData.phone.trim()) {
         throw new Error('请填写必填字段');
       }
       
-      // 模拟API提交延迟
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // 模拟成功响应
-      setSubmitStatus('success');
-      setSubmitMessage('提交成功！我们的客服团队将尽快与您联系。');
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        serviceType: '',
-        urgency: '',
-        description: ''
-      });
-      
-      // 如果需要实际提交到后端API，可以取消注释以下代码
-      /*
-      const response = await fetch('/api/contact', {
+      // 调用API提交表单
+      const response = await fetch('/api/cases-contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -215,7 +199,6 @@ export default function CasesPage() {
         setSubmitStatus('error');
         setSubmitMessage(result.message || '提交失败，请稍后重试或直接电话联系我们。');
       }
-      */
     } catch (error) {
       console.error('表单提交错误:', error);
       setSubmitStatus('error');
