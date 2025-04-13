@@ -17,7 +17,6 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/about" className="text-gray-400 hover:text-white">公司介绍</Link></li>
               <li><Link href="/about/team" className="text-gray-400 hover:text-white">团队介绍</Link></li>
-              <li><Link href="/about/culture" className="text-gray-400 hover:text-white">企业文化</Link></li>
             </ul>
           </div>
           
@@ -26,7 +25,6 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/services/field-planning" className="text-gray-400 hover:text-white">场地规划设计</Link></li>
               <li><Link href="/services/record-material" className="text-gray-400 hover:text-white">备案资料制作</Link></li>
-              <li><Link href="/services/consulting" className="text-gray-400 hover:text-white">政策咨询</Link></li>
             </ul>
           </div>
           
@@ -35,7 +33,6 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/cases/field-planning" className="text-gray-400 hover:text-white">场地规划案例</Link></li>
               <li><Link href="/cases/documentation" className="text-gray-400 hover:text-white">备案资料案例</Link></li>
-              <li><Link href="/cases/consulting" className="text-gray-400 hover:text-white">咨询服务案例</Link></li>
             </ul>
           </div>
           
@@ -44,7 +41,6 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/policies/standard" className="text-gray-400 hover:text-white">行业标准</Link></li>
               <li><Link href="/policies/interpretation" className="text-gray-400 hover:text-white">政策解读</Link></li>
-              <li><Link href="/policies/faq" className="text-gray-400 hover:text-white">常见问题</Link></li>
             </ul>
           </div>
         </div>
