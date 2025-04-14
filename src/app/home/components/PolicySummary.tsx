@@ -11,14 +11,14 @@ export default function PolicySummary() {
       title: '关于进一步规范机动车驾驶员培训机构管理的通知',
       date: '2023-12-15',
       summary: '规范驾校培训机构资质审核，明确场地要求和教学标准，提高驾培行业服务质量。',
-      link: '/policies/1'
+      link: '/policies/policy-001'
     },
     {
       id: 2,
       title: '机动车驾驶培训教练场地技术要求（2023版）',
       date: '2023-11-08',
       summary: '明确驾校教练场地的面积、设施、安全等方面的技术要求，为场地建设和备案提供依据。',
-      link: '/policies/2'
+      link: '/policies/standard-001'
     },
     {
       id: 3,
@@ -35,13 +35,13 @@ export default function PolicySummary() {
       id: 1,
       title: '《机动车驾驶员培训机构资格条件》解析',
       summary: '详细解析驾培机构资格条件的具体要求，包括场地、设施、人员配置和管理制度等方面。',
-      link: '/policies/standard/1'
+      link: '/policies/standard-001'
     },
     {
       id: 2,
       title: '《道路运输从业人员管理规定》重点条款解析',
       summary: '针对驾培行业管理人员和教练员资质要求的详细解析，明确持证上岗和定期培训要求。',
-      link: '/policies/standard/2'
+      link: '/policies/standard-001'
     }
   ];
 
@@ -119,10 +119,10 @@ export default function PolicySummary() {
               {/* 查看更多按钮 */}
               <div className="mt-8 text-center">
                 <Link 
-                  href="/policies" 
+                  href="/policies?category=standard" 
                   className="inline-block bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium px-8 py-3 rounded-full transition-all hover:shadow-md hover:-translate-y-1"
                 >
-                  查看更多政策法规
+                  查看更多行业标准
                 </Link>
               </div>
             </div>

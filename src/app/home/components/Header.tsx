@@ -31,6 +31,11 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
+          <Link href="/" className={`transition-colors ${
+            isScrolled ? 'text-gray-800 hover:text-blue-600' : 'text-white hover:text-blue-200'
+          }`}>
+            首页
+          </Link>
           <div className="relative group">
             <button className={`flex items-center transition-colors ${
               isScrolled ? 'text-gray-800 hover:text-blue-600' : 'text-white hover:text-blue-200'
@@ -113,6 +118,9 @@ export default function Header() {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white shadow-lg">
           <div className="container mx-auto px-4 py-3 flex flex-col space-y-3">
+            <Link href="/" className="text-gray-800 py-2 border-b border-gray-100">
+              首页
+            </Link>
             <Link href="/services" className="text-gray-800 py-2 border-b border-gray-100">
               服务介绍
             </Link>
