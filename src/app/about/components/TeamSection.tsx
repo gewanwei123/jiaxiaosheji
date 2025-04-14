@@ -6,10 +6,10 @@ import React, { useState } from 'react';
 const teamData = {
   management: [
     {
-      name: '张志强',
+      name: '葛万威',
       title: '创始人 & CEO',
       image: '/images/team/placeholder.jpg', // 临时占位图
-      description: '拥有15年驾校规划和管理经验，曾参与30多家驾校的规划设计，对行业法规和标准有深入研究。致力于推动驾培行业规范化、专业化发展。',
+      description: '拥有12年驾校规划和管理经验，曾参与200多个驾校的规划设计项目，对行业法规和标准有深入研究。从2013年开始专注于驾校规划设计领域，带领团队为全国各地的驾校提供专业服务。致力于推动驾培行业规范化、专业化发展。',
       expertise: ['驾校规划', '行业标准', '战略规划']
     },
     {
