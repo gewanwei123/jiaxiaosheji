@@ -97,7 +97,7 @@ export default function Testimonial() {
                     index === activeSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 hidden'
                   }`}
                 >
-                  <p className="text-gray-700 text-lg italic mb-6 leading-relaxed">"{review.content}"</p>
+                  <p className="text-gray-700 text-lg italic mb-6 leading-relaxed">&quot;{review.content}&quot;</p>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div>
                       <p className="font-semibold text-gray-800">{review.author}</p>

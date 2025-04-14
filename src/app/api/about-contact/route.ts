@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     }
     
     // 3. 创建发送器
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
       host: 'smtp.qq.com',
       port: 465,
       secure: true, // 使用SSL
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     };
     
     // 4. 发送邮件
-    let info = await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"驾校设计规划网站" <${emailUser}>`,
       to: emailRecipient,
       subject: "关于我们页面新的联系咨询",

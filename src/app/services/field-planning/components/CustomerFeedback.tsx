@@ -107,7 +107,7 @@ export default function CustomerFeedback() {
                 <div className="flex mb-3">
                   {renderStars(feedbacks[currentIndex].rating)}
                 </div>
-                <p className="text-gray-700 italic mb-6">"{feedbacks[currentIndex].content}"</p>
+                <p className="text-gray-700 italic mb-6">&quot;{feedbacks[currentIndex].content}&quot;</p>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-800">{feedbacks[currentIndex].name}</h4>
                   <p className="text-gray-600">{feedbacks[currentIndex].position}</p>

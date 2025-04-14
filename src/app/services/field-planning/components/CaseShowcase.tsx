@@ -11,7 +11,7 @@ export default function CaseShowcase() {
     {
       title: "河南某大型驾校训练场地规划",
       challenge: "场地形状不规则，需优化空间利用率",
-      solution: "创新的功能区布局，采用\"回\"字形动线设计",
+      solution: "创新的功能区布局，采用&quot;回&quot;字形动线设计",
       result: "通过审批，空间利用率提升30%，可同时容纳培训车辆增加25%",
       image: "/images/cases/case-1.jpg", // 需要添加实际的图片路径
       tags: ["大型驾校", "空间优化", "功能布局"]
@@ -166,7 +166,7 @@ export default function CaseShowcase() {
           <h3 className="text-xl font-semibold text-center text-gray-800 mb-6">客户评价</h3>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <p className="text-gray-600 italic mb-4">"从最初的规划到最终交付，整个团队表现出高度的专业性。他们的场地布局方案不仅满足了所有监管要求，还大大提高了我们的培训效率。"</p>
+              <p className="text-gray-600 italic mb-4">&quot;从最初的规划到最终交付，整个团队表现出高度的专业性。他们的场地布局方案不仅满足了所有监管要求，还大大提高了我们的培训效率。&quot;</p>
               <div className="flex items-center">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold mr-3">Z</div>
                 <div>
@@ -177,7 +177,7 @@ export default function CaseShowcase() {
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <p className="text-gray-600 italic mb-4">"他们提供的场地规划方案帮助我们成功通过了监管审批，且运营一年来未发现任何设计缺陷。特别感谢他们在坡度处理和排水系统设计方面的专业建议。"</p>
+              <p className="text-gray-600 italic mb-4">&quot;他们提供的场地规划方案帮助我们成功通过了监管审批，且运营一年来未发现任何设计缺陷。特别感谢他们在坡度处理和排水系统设计方面的专业建议。&quot;</p>
               <div className="flex items-center">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold mr-3">L</div>
                 <div>
