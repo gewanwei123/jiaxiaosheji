@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import WechatQrCode from '@/app/components/WechatQrCode';
 
 // 定义表单字段类型
 type FormData = {
@@ -168,12 +169,14 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-lg font-medium text-gray-800 mb-1">微信二维码</h4>
-                  <div className="bg-white p-2 rounded-md w-32 h-32 mb-2 flex items-center justify-center">
-                    {/* 替换为实际的微信二维码图片 */}
-                    <p className="text-blue-700 text-xs text-center">请替换为实际微信二维码图片</p>
-                  </div>
-                  <p className="text-gray-500 text-sm">扫码添加微信，获取更多服务信息</p>
+                  <WechatQrCode
+                    width={128}
+                    height={128}
+                    hasBorder={true}
+                    borderColor="gray-200"
+                    titleText="添加微信咨询"
+                    description="扫码咨询备案资料制作"
+                  />
                 </div>
               </div>
             </div>

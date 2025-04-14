@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import WechatQrCode from '@/app/components/WechatQrCode';
 
 export default function ContactSection() {
   // 表单状态
@@ -144,19 +145,20 @@ export default function ContactSection() {
                 
                 {/* 微信二维码 */}
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                     </svg>
                   </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-gray-800">微信二维码</h4>
-                    <div className="bg-gray-100 p-2 rounded-md w-32 h-32 mt-2 mb-2 flex items-center justify-center">
-                      {/* 替换为实际的微信二维码图片 */}
-                      <p className="text-gray-500 text-xs text-center">请替换为实际微信二维码图片</p>
-                    </div>
-                    <p className="text-gray-600">扫码添加微信，获取更多服务信息</p>
-                    <p className="text-gray-500 text-sm">微信号：135-2552-0521</p>
+                  <div>
+                    <WechatQrCode
+                      width={128}
+                      height={128}
+                      hasBorder={true}
+                      borderColor="gray-200"
+                      titleText="添加微信咨询"
+                      description="扫码咨询场地规划方案"
+                    />
                   </div>
                 </div>
               </div>
