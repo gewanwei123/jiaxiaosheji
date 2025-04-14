@@ -118,7 +118,7 @@ export default function ServiceOverview() {
   ];
   
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="services" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* 标题 */}
         <div className="text-center mb-16">

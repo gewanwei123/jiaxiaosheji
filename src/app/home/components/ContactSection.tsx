@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import WechatQrCode from '@/app/components/WechatQrCode';
+import { validateForm, validatePhone, validateEmail, validateName, validateMessage, validateService } from '@/lib/validation';
 
 export default function ContactSection() {
   // 表单数据状态
@@ -14,6 +15,9 @@ export default function ContactSection() {
     message: ''
   });
   
+  // 表单验证错误状态
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  
   // 表单提交状态
   const [submitStatus, setSubmitStatus] = useState({
     submitting: false,
@@ -22,6 +26,15 @@ export default function ContactSection() {
     message: ''
   });
   
+  // CSRF Token状态
+  const [csrfToken, setCsrfToken] = useState('');
+  
+  // 组件加载时获取CSRF Token
+  useEffect(() => {
+    const token = crypto.randomUUID();
+    setCsrfToken(token);
+  }, []);
+  
   // 处理表单输入变化
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -29,11 +42,45 @@ export default function ContactSection() {
       ...prev,
       [id]: value
     }));
+    
+    // 实时验证
+    let validationResult;
+    switch (id) {
+      case 'name':
+        validationResult = validateName(value);
+        break;
+      case 'phone':
+        validationResult = validatePhone(value);
+        break;
+      case 'email':
+        validationResult = validateEmail(value);
+        break;
+      case 'service':
+        validationResult = validateService(value);
+        break;
+      case 'message':
+        validationResult = validateMessage(value);
+        break;
+      default:
+        return;
+    }
+    
+    setErrors(prev => ({
+      ...prev,
+      [id]: validationResult.message
+    }));
   };
   
   // 表单提交处理
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // 验证整个表单
+    const validation = validateForm(formData);
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      return;
+    }
     
     // 设置提交中状态
     setSubmitStatus({
@@ -49,6 +96,7 @@ export default function ContactSection() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-csrf-token': csrfToken
         },
         body: JSON.stringify(formData),
       });
@@ -64,7 +112,7 @@ export default function ContactSection() {
           message: '表单提交成功，我们会尽快联系您！'
         });
         
-        // 清空表单
+        // 清空表单和错误
         setFormData({
           name: '',
           phone: '',
@@ -72,6 +120,7 @@ export default function ContactSection() {
           service: '',
           message: ''
         });
+        setErrors({});
       } else {
         // API返回错误
         setSubmitStatus({
@@ -186,10 +235,13 @@ export default function ContactSection() {
                     id="name" 
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
+                    className={`w-full bg-white/5 border ${errors.name ? 'border-red-500' : 'border-white/20'} rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30`}
                     placeholder="请输入您的姓名"
                     required
                   />
+                  {errors.name && (
+                    <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                  )}
                 </div>
                 
                 <div>
@@ -199,10 +251,13 @@ export default function ContactSection() {
                     id="phone" 
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
+                    className={`w-full bg-white/5 border ${errors.phone ? 'border-red-500' : 'border-white/20'} rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30`}
                     placeholder="请输入您的联系电话"
                     required
                   />
+                  {errors.phone && (
+                    <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
+                  )}
                 </div>
                 
                 <div>
@@ -212,9 +267,12 @@ export default function ContactSection() {
                     id="email" 
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
+                    className={`w-full bg-white/5 border ${errors.email ? 'border-red-500' : 'border-white/20'} rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30`}
                     placeholder="请输入您的电子邮箱"
                   />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+                  )}
                 </div>
                 
                 <div>
@@ -223,7 +281,7 @@ export default function ContactSection() {
                     id="service" 
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+                    className={`w-full bg-white/5 border ${errors.service ? 'border-red-500' : 'border-white/20'} rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white/30`}
                     required
                   >
                     <option value="" className="bg-blue-700">请选择咨询服务</option>
@@ -231,6 +289,9 @@ export default function ContactSection() {
                     <option value="备案资料制作" className="bg-blue-700">备案资料制作</option>
                     <option value="其他服务" className="bg-blue-700">其他服务</option>
                   </select>
+                  {errors.service && (
+                    <p className="mt-1 text-sm text-red-400">{errors.service}</p>
+                  )}
                 </div>
                 
                 <div>
@@ -240,10 +301,13 @@ export default function ContactSection() {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/20 rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
+                    className={`w-full bg-white/5 border ${errors.message ? 'border-red-500' : 'border-white/20'} rounded-md px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30`}
                     placeholder="请详细描述您的需求"
                     required
                   ></textarea>
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-400">{errors.message}</p>
+                  )}
                 </div>
                 
                 {/* 提交状态反馈 */}

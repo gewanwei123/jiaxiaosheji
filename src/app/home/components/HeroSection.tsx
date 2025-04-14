@@ -37,18 +37,28 @@ export default function HeroSection() {
           </p>
           
           <div className="flex flex-wrap gap-4 justify-center animate-fadeIn" style={{animationDelay: '0.9s'}}>
-            <Link 
-              href="/contact" 
+            <button 
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-3 rounded-full transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
               免费咨询
-            </Link>
-            <Link 
-              href="/services" 
+            </button>
+            <button 
+              onClick={() => {
+                const servicesSection = document.getElementById('services');
+                if (servicesSection) {
+                  servicesSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="bg-white/10 hover:bg-white/20 text-white text-lg px-8 py-3 rounded-full transition-all border-2 border-white/30 hover:border-white/50"
             >
               了解更多
-            </Link>
+            </button>
           </div>
         </div>
       </div>

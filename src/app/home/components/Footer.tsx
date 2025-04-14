@@ -63,7 +63,6 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
             <Link href="/privacy" className="text-gray-400 hover:text-white">隐私政策</Link>
             <Link href="/terms" className="text-gray-400 hover:text-white">服务条款</Link>
-            <Link href="/sitemap" className="text-gray-400 hover:text-white">网站地图</Link>
           </div>
         </div>
       </div>

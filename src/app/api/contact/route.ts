@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { sanitizeFormData } from '@/lib/sanitize';
 
 export async function POST(request: Request) {
   try {
-    // 1. 获取表单数据
+    // 1. 获取并净化表单数据
     const formData = await request.json();
-    const { name, phone, email, service, message } = formData;
+    const sanitizedData = sanitizeFormData(formData);
+    const { name, phone, email, service, message } = sanitizedData;
     
     // 2. 从环境变量获取邮箱配置
     const emailUser = process.env.EMAIL_USER;
