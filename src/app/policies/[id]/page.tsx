@@ -5,7 +5,6 @@ import Header from '@/app/home/components/Header';
 import Footer from '@/app/home/components/Footer';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { policyDetails } from '@/data/policies';
 import WechatQrCode from '@/app/components/WechatQrCode';
 
 // 定义政策详情接口
@@ -14,13 +13,13 @@ interface PolicyDetail {
   title: string;
   issuer: string;
   issueDate: string;
-  effectiveDate: string;
-  documentNumber: string;
+  effectiveDate?: string;
+  documentNumber?: string;
   category: string;
   tags: string[];
   summary: string;
   content: string;
-  relatedPolicies: Array<{
+  relatedPolicies?: Array<{
     id: string;
     title: string;
   }>;
@@ -98,6 +97,53 @@ function PolicyContent({ content }: { content: string }) {
 export default function PolicyDetailPage() {
   const params = useParams();
   const policyId = params.id as string;
+  
+  // 添加政策数据状态
+  const [policy, setPolicy] = useState<PolicyDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // 从API获取政策数据
+  useEffect(() => {
+    const fetchPolicy = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // 先尝试获取策略
+        let res = await fetch(`/api/content?policyId=${policyId}`);
+        let data = await res.json();
+        
+        if (data.policy) {
+          setPolicy(data.policy);
+          setLoading(false);
+          return;
+        }
+        
+        // 如果找不到策略，尝试获取标准
+        res = await fetch(`/api/content?standardId=${policyId}`);
+        data = await res.json();
+        
+        if (data.standard) {
+          setPolicy(data.standard);
+          setLoading(false);
+          return;
+        }
+        
+        // 如果两者都找不到，设置错误
+        setError('找不到请求的政策或标准');
+        setLoading(false);
+      } catch (error) {
+        console.error('获取政策详情失败:', error);
+        setError('获取数据时发生错误');
+        setLoading(false);
+      }
+    };
+    
+    if (policyId) {
+      fetchPolicy();
+    }
+  }, [policyId]);
   
   // 添加表单状态管理
   const [formData, setFormData] = useState({
@@ -192,20 +238,43 @@ export default function PolicyDetailPage() {
     }
   };
   
-  // 获取当前政策数据，如果不存在则使用默认对象
-  const policy = policyDetails[policyId] as PolicyDetail || {
-    id: 'not-found',
-    title: '政策文件未找到',
-    issuer: '未知',
-    issueDate: '未知',
-    effectiveDate: '未知',
-    documentNumber: '未知',
-    category: '未知',
-    tags: [],
-    summary: '抱歉，您请求的政策文件不存在或已被移除。',
-    content: '<p>找不到对应的政策内容</p>',
-    relatedPolicies: []
-  };
+  // 如果正在加载，显示加载状态
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-lg text-gray-600">加载中...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+  
+  // 如果有错误，显示错误信息
+  if (error || !policy) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow bg-gray-50 flex items-center justify-center">
+          <div className="text-center max-w-md px-4">
+            <svg className="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h1 className="text-2xl font-bold text-gray-800 mb-2">政策文件未找到</h1>
+            <p className="text-gray-600 mb-6">{error || '找不到请求的政策或标准，它可能已被移除或尚未发布。'}</p>
+            <Link href="/policies" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+              返回政策列表
+            </Link>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -247,18 +316,22 @@ export default function PolicyDetailPage() {
                     <span className="text-gray-500 w-24">发布机构:</span>
                     <span className="text-gray-800 font-medium">{policy.issuer}</span>
                   </div>
-                  <div className="flex items-start">
-                    <span className="text-gray-500 w-24">文件编号:</span>
-                    <span className="text-gray-800 font-medium">{policy.documentNumber}</span>
-                  </div>
+                  {policy.documentNumber && (
+                    <div className="flex items-start">
+                      <span className="text-gray-500 w-24">文件编号:</span>
+                      <span className="text-gray-800 font-medium">{policy.documentNumber}</span>
+                    </div>
+                  )}
                   <div className="flex items-start">
                     <span className="text-gray-500 w-24">发布日期:</span>
                     <span className="text-gray-800 font-medium">{policy.issueDate}</span>
                   </div>
-                  <div className="flex items-start">
-                    <span className="text-gray-500 w-24">生效日期:</span>
-                    <span className="text-gray-800 font-medium">{policy.effectiveDate}</span>
-                  </div>
+                  {policy.effectiveDate && (
+                    <div className="flex items-start">
+                      <span className="text-gray-500 w-24">生效日期:</span>
+                      <span className="text-gray-800 font-medium">{policy.effectiveDate}</span>
+                    </div>
+                  )}
                   <div className="flex items-start">
                     <span className="text-gray-500 w-24">政策类别:</span>
                     <span className="text-gray-800 font-medium">{policy.category}</span>
@@ -324,7 +397,7 @@ export default function PolicyDetailPage() {
         </div>
       </main>
       
-      {/* 咨询服务 - 与政策法规列表页保持一致 */}
+      {/* 咨询服务 - 联系表单区域 */}
       <div id="contact" className="bg-blue-50 py-12">
         <div className="container mx-auto px-4">
           {/* 主标题 */}

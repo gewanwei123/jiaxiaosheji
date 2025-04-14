@@ -70,31 +70,31 @@ export default function ContactInfo() {
       const result = await response.json();
       
       if (result.success) {
+      setFormStatus({
+        submitting: false,
+        submitted: true,
+        success: true,
+          message: result.message || '您的消息已成功提交，我们将尽快与您联系！'
+      });
+      
+      // 重置表单
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+      // 5秒后清除提交状态
+      setTimeout(() => {
         setFormStatus({
           submitting: false,
-          submitted: true,
-          success: true,
-          message: result.message || '您的消息已成功提交，我们将尽快与您联系！'
-        });
-        
-        // 重置表单
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          subject: '',
+          submitted: false,
+          success: false,
           message: ''
         });
-        
-        // 5秒后清除提交状态
-        setTimeout(() => {
-          setFormStatus({
-            submitting: false,
-            submitted: false,
-            success: false,
-            message: ''
-          });
-        }, 5000);
+      }, 5000);
       } else {
         setFormStatus({
           submitting: false,
@@ -161,9 +161,9 @@ export default function ContactInfo() {
                 <div>
                   <h4 className="text-lg font-medium text-gray-800 mb-1">办公地址</h4>
                   <p className="text-gray-700">{contactData.address}</p>
-                </div>
               </div>
-              
+            </div>
+            
               <div className="flex items-start">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                   <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

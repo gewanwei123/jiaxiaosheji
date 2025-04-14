@@ -7,7 +7,6 @@ import CategoryTabs from './components/CategoryTabs';
 import PolicyCard from './components/PolicyCard';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { policyList } from '@/data/policies';
 import WechatQrCode from '@/app/components/WechatQrCode';
 
 // 过滤选项
@@ -39,9 +38,40 @@ const SORT_OPTIONS = [
 // 定义标签类型
 type Tag = string;
 
+// 定义政策类型
+interface Policy {
+  id: string;
+  title: string;
+  issuer: string;
+  issueDate: string;
+  category: string;
+  tags: string[];
+  summary: string;
+  isHighlighted?: boolean;
+  content: string;
+}
+
+// 定义标准类型
+interface Standard {
+  id: string;
+  title: string;
+  issuer: string;
+  issueDate: string;
+  category: string;
+  tags: string[];
+  summary: string;
+  isHighlighted?: boolean;
+  content: string;
+}
+
 export default function PoliciesPage() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
+  
+  // 添加政策和标准的状态
+  const [policies, setPolicies] = useState<Policy[]>([]);
+  const [standards, setStandards] = useState<Standard[]>([]);
+  const [loading, setLoading] = useState(true);
   
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(categoryParam || 'all');
@@ -63,6 +93,32 @@ export default function PoliciesPage() {
     success: boolean;
     message: string;
   } | null>(null);
+  
+  // 获取政策和标准数据
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch('/api/content');
+        const data = await res.json();
+        
+        if (data.policies) {
+          setPolicies(data.policies);
+        }
+        
+        if (data.standards) {
+          setStandards(data.standards);
+        }
+        
+        setLoading(false);
+      } catch (error) {
+        console.error('获取内容失败:', error);
+        setLoading(false);
+      }
+    };
+    
+    fetchContent();
+  }, []);
   
   // 当URL参数变化时更新selectedCategory
   useEffect(() => {
@@ -127,8 +183,11 @@ export default function PoliciesPage() {
     return url.pathname + url.search;
   };
   
+  // 合并政策和标准
+  const allPolicyItems = [...policies, ...standards];
+  
   // 过滤和排序政策
-  const filteredPolicies = policyList
+  const filteredPolicies = allPolicyItems
     .filter(policy => {
       // 搜索词过滤
       const searchMatch = searchTerm === '' || 
@@ -160,16 +219,16 @@ export default function PoliciesPage() {
         
       // 标签过滤
       const tagMatch = selectedTags.length === 0 || 
-        selectedTags.some(tag => policy.tags.includes(tag));
+        (policy.tags && policy.tags.some(tag => selectedTags.includes(tag)));
         
       return searchMatch && categoryMatch && tagMatch;
     })
     .sort((a, b) => {
       switch(sortOption) {
         case 'dateDesc':
-          return new Date(b.issueDate).getTime() - new Date(a.issueDate).getTime();
+          return new Date(b.issueDate || '').getTime() - new Date(a.issueDate || '').getTime();
         case 'dateAsc':
-          return new Date(a.issueDate).getTime() - new Date(b.issueDate).getTime();
+          return new Date(a.issueDate || '').getTime() - new Date(b.issueDate || '').getTime();
         case 'titleAsc':
           return a.title.localeCompare(b.title);
         case 'titleDesc':
