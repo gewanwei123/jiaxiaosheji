@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Header from '@/app/home/components/Header';
 import Footer from '@/app/home/components/Footer';
 import CategoryTabs from './components/CategoryTabs';
@@ -65,6 +65,14 @@ interface Standard {
 }
 
 export default function PoliciesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PoliciesContent />
+    </Suspense>
+  );
+}
+
+function PoliciesContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
   
