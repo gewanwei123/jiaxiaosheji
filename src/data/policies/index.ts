@@ -1,8 +1,6 @@
 // 导入政策文件
 import { policy001 } from './policy/policy-001';
 import { policy002 } from './policy/policy-002';
-import { interpretation001 } from './interpretation/interp-001';
-import { interpretation002 } from './interpretation/interp-002';
 // 在这里导入更多政策...
 
 // 创建政策列表（用于列表页）
@@ -57,9 +55,4 @@ export const highlightedPolicies = policyList.filter(policy => policy.isHighligh
 // 根据标签获取政策
 export const getPoliciesByTag = (tag: string) => {
   return policyList.filter(policy => policy.tags.includes(tag));
-};
-
-export const policyInterpretations = [
-  interpretation001,
-  interpretation002
-]; 
+}; 

@@ -33,8 +33,8 @@ export async function POST(request: Request) {
     });
     
     // 咨询类型映射
-    const consultTypeMap: {[key: string]: string} = {
-      'policy': '政策解读',
+    const consultTypeMap: Record<string, string> = {
+      'policy': '法规咨询',
       'approval': '审批要求',
       'standard': '行业标准',
       'other': '其他问题'

@@ -20,11 +20,11 @@ const teamData = {
       expertise: ['场地设计', '3D建模', 'CAD制图']
     },
     {
-      name: '王丽',
+      name: '赵恒',
       title: '法规顾问',
-      image: '/images/team/placeholder.jpg', // 临时占位图
-      description: '法学背景，8年驾培行业法规研究经验，熟悉各地区驾校审批和备案流程，为多家驾校提供政策咨询和备案资料制作服务。',
-      expertise: ['政策解读', '备案资料', '合规咨询']
+      image: '/images/team/consultant.jpg',
+      description: '10年驾校行业法规经验，擅长解读政策法规，并为驾校提供合规指导。曾成功帮助多家驾校完成备案审批。',
+      expertise: ['法规咨询', '备案资料', '合规咨询']
     }
   ],
   

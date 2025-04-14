@@ -29,19 +29,19 @@ export default function PolicySummary() {
     }
   ];
 
-  // 重要法规解读
-  const importantRegulations = [
+  // 行业标准解析
+  const industryStandards = [
     {
       id: 1,
-      title: '《机动车驾驶员培训机构资格条件》政策解读',
-      summary: '详细解读驾培机构资格条件的具体要求，包括场地、设施、人员配置和管理制度等方面。',
-      link: '/regulations/1'
+      title: '《机动车驾驶员培训机构资格条件》解析',
+      summary: '详细解析驾培机构资格条件的具体要求，包括场地、设施、人员配置和管理制度等方面。',
+      link: '/policies/standard/1'
     },
     {
       id: 2,
       title: '《道路运输从业人员管理规定》重点条款解析',
-      summary: '针对驾培行业管理人员和教练员资质要求的详细解读，明确持证上岗和定期培训要求。',
-      link: '/regulations/2'
+      summary: '针对驾培行业管理人员和教练员资质要求的详细解析，明确持证上岗和定期培训要求。',
+      link: '/policies/standard/2'
     }
   ];
 
@@ -89,26 +89,26 @@ export default function PolicySummary() {
             </div>
           </div>
           
-          {/* 法规解读 */}
+          {/* 行业标准 */}
           <div>
             <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
               <svg className="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
-              重要法规解读
+              行业标准解析
             </h3>
             
             <div className="space-y-6">
-              {importantRegulations.map((regulation, index) => (
+              {industryStandards.map((standard, index) => (
                 <div 
-                  key={regulation.id} 
+                  key={standard.id} 
                   className="bg-white rounded-xl shadow p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-l-4 border-green-600"
                   style={{ animationDelay: `${index * 0.2}s` }}
                 >
-                  <h4 className="text-lg font-semibold text-gray-800 mb-2">{regulation.title}</h4>
-                  <p className="text-gray-600 mb-4">{regulation.summary}</p>
-                  <Link href={regulation.link} className="text-blue-600 font-medium hover:text-blue-700 inline-flex items-center group">
-                    查看解读
+                  <h4 className="text-lg font-semibold text-gray-800 mb-2">{standard.title}</h4>
+                  <p className="text-gray-600 mb-4">{standard.summary}</p>
+                  <Link href={standard.link} className="text-blue-600 font-medium hover:text-blue-700 inline-flex items-center group">
+                    查看解析
                     <svg className="w-4 h-4 ml-1 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                     </svg>

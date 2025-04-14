@@ -619,7 +619,7 @@ export default function PoliciesPage() {
                         hasBorder={true}
                         borderColor="gray-200"
                         titleText="添加微信咨询"
-                        description="扫码获取政策解读服务"
+                        description="扫码获取专业咨询服务"
                       />
                     </div>
                   </div>
@@ -704,7 +704,7 @@ export default function PoliciesPage() {
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
                     >
                       <option value="">请选择咨询类型</option>
-                      <option value="policy">政策解读</option>
+                      <option value="policy">法规咨询</option>
                       <option value="approval">审批要求</option>
                       <option value="standard">行业标准</option>
                       <option value="other">其他问题</option>

@@ -39,8 +39,8 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-4">政策法规</h3>
             <ul className="space-y-2">
+              <li><Link href="/policies" className="text-gray-400 hover:text-white">政策法规</Link></li>
               <li><Link href="/policies/standard" className="text-gray-400 hover:text-white">行业标准</Link></li>
-              <li><Link href="/policies/interpretation" className="text-gray-400 hover:text-white">政策解读</Link></li>
             </ul>
           </div>
         </div>

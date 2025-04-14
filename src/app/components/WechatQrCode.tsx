@@ -14,6 +14,8 @@ interface WechatQrCodeProps {
   titleText?: string;  // 自定义标题文本
   description?: string; // 自定义描述文本
   titlePosition?: 'top' | 'bottom'; // 标题位置
+  titleColor?: string; // 标题文本颜色
+  descriptionColor?: string; // 描述文本颜色
 }
 
 /**
@@ -30,7 +32,9 @@ const WechatQrCode: React.FC<WechatQrCodeProps> = ({
   showTitle = true,
   titleText = "添加微信咨询",
   description = "扫码添加，获取专业解答",
-  titlePosition = 'top'
+  titlePosition = 'top',
+  titleColor = "text-gray-800",
+  descriptionColor = "text-gray-500"
 }) => {
   // 二维码图片路径 - 统一管理，修改时只需更改此处
   const qrCodePath = "/images/contact/wechat-qrcode.png";
@@ -39,7 +43,7 @@ const WechatQrCode: React.FC<WechatQrCodeProps> = ({
     <div className="flex flex-col items-center">
       {/* 标题放在顶部 */}
       {showTitle && titlePosition === 'top' && (
-        <h4 className="text-lg font-medium text-gray-800 mb-2">{titleText}</h4>
+        <h4 className={`text-lg font-medium ${titleColor} mb-2`}>{titleText}</h4>
       )}
       
       <div 
@@ -66,10 +70,10 @@ const WechatQrCode: React.FC<WechatQrCodeProps> = ({
       
       {/* 标题放在底部 */}
       {showTitle && titlePosition === 'bottom' && (
-        <h4 className="text-lg font-medium text-gray-800 mt-2 mb-1">{titleText}</h4>
+        <h4 className={`text-lg font-medium ${titleColor} mt-2 mb-1`}>{titleText}</h4>
       )}
       
-      <p className="text-gray-500 text-sm mt-1">{description}</p>
+      <p className={`text-sm mt-1 ${descriptionColor}`}>{description}</p>
     </div>
   );
 };

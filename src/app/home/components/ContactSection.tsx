@@ -164,7 +164,9 @@ export default function ContactSection() {
                     titleText="添加微信咨询"
                     description="扫一扫，立即获取专业服务"
                     hasBorder={true}
-                    borderColor="white-20" 
+                    borderColor="white-20"
+                    titleColor="text-white"
+                    descriptionColor="text-white/80"
                   />
                 </div>
               </div>
