@@ -84,7 +84,7 @@ export function getStandardById(id) {
 }
 
 // 获取最新政策
-export function getLatestPolicies(count = 5) {
+export function getLatestPolicies(count = 2) {
   const policies = getPolicies();
   return policies.slice(0, count);
 }
