@@ -196,7 +196,6 @@ export default function ContactSection() {
                 <div>
                   <h4 className="text-lg font-semibold mb-1">工作时间</h4>
                   <p className="text-white/80">周一至周五: 9:00 - 18:00</p>
-                  <p className="text-white/80">周末: 休息</p>
                 </div>
               </div>
               
