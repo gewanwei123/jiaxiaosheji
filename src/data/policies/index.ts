@@ -39,9 +39,6 @@ export const policyDetails: Record<string, any> = {
 export const policiesByCategory = {
   '政策文件': policyList.filter(policy => policy.category === '政策文件'),
   '行业标准': policyList.filter(policy => policy.category === '行业标准'),
-  '指南文件': policyList.filter(policy => policy.category === '指南文件'),
-  '指导意见': policyList.filter(policy => policy.category === '指导意见'),
-  '安全规定': policyList.filter(policy => policy.category === '安全规定'),
 };
 
 // 获取最新政策（按发布日期排序）

@@ -13,10 +13,7 @@ import WechatQrCode from '@/app/components/WechatQrCode';
 const CATEGORIES = [
   { id: 'all', name: '全部' },
   { id: 'policy', name: '政策文件' },
-  { id: 'standard', name: '行业标准' },
-  { id: 'guide', name: '指南文件' },
-  { id: 'opinion', name: '指导意见' },
-  { id: 'safety', name: '安全规定' }
+  { id: 'standard', name: '行业标准' }
 ];
 
 const TAGS = [
@@ -212,15 +209,6 @@ function PoliciesContent() {
             break;
           case 'standard':
             categoryMatch = policy.category === '行业标准';
-            break;
-          case 'guide':
-            categoryMatch = policy.category === '指南文件';
-            break;
-          case 'opinion':
-            categoryMatch = policy.category === '指导意见';
-            break;
-          case 'safety':
-            categoryMatch = policy.category === '安全规定';
             break;
         }
       }

@@ -8,9 +8,6 @@ const categories = [
   { id: 'all', name: '全部', param: '' },
   { id: 'policy', name: '政策文件', param: 'policy' },
   { id: 'standard', name: '行业标准', param: 'standard' },
-  { id: 'guide', name: '指南文件', param: 'guide' },
-  { id: 'opinion', name: '指导意见', param: 'opinion' },
-  { id: 'safety', name: '安全规定', param: 'safety' },
 ];
 
 export default function CategoryTabs() {
